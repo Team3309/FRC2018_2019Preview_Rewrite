@@ -211,10 +211,9 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.frcbeta.phoenix/api-java/5.9.2/1b5e0f542a23a23dcb5086b278674c13ecc1937/api-java-5.9.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.0.3-alpha">
+    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.0.4-alpha">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/Could not find com.github.Nico1999:4322Utils:2019-0.0.3-alpha." />
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.0.3-alpha/f9d73f8389932eefcb2ff5427a8fd8a2055ea282/4322Utils-2019-0.0.3-alpha.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.0.4-alpha/949999feb31b9b8181df83a0a928bd88112c8fa2/4322Utils-2019-0.0.4-alpha.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

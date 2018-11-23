@@ -10,43 +10,52 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 import org.usfirst.frc.team3309.Constants;
 
+
+/*
+ * This class defines the lift subsystem.
+ * The lift subsystem is responsible for controlling the position of the carriage.
+ */
 public class Lift extends Subsystem {
 
-    private TalonSRX liftMaster = new TalonSRX(Constants.LIFT_0);
-    private TalonSRX lift1 = new TalonSRX(Constants.LIFT_1);
-    private VictorSPX lift2 = new VictorSPX(Constants.LIFT_2);
-    private VictorSPX lift3 = new VictorSPX(Constants.LIFT_3);
-    private VictorSPX lift4 = new VictorSPX(Constants.LIFT_4);
+    /*
+     * Here we set up all the various actuators and sensors that are connected to the lift.
+     * The lift has 5 motor controllers, 1 double solenoid, 1 banner sensor, and 1 single solenoid.
+     */
+    private TalonSRX liftMaster = new TalonSRX(Constants.LIFT_MASTER_TALON_ID);
+    private TalonSRX liftSlave1 = new TalonSRX(Constants.LIFT_SLAVE_TALON_1_ID);
+    private VictorSPX liftSlave2 = new VictorSPX(Constants.LIFT_SLAVE_VICTOR_2_ID);
+    private VictorSPX liftSlave3 = new VictorSPX(Constants.LIFT_SLAVE_VICTOR_3_ID);
+    private VictorSPX liftSlave4 = new VictorSPX(Constants.LIFT_SLAVE_VICTOR_4_ID);
 
-    private DoubleSolenoid secondStageHolder = new DoubleSolenoid(Constants.LIFT_HOLDER_A, Constants.LIFT_HOLDER_B);
+    private DoubleSolenoid secondStageHolder = new DoubleSolenoid(Constants.LIFT_CARRIAGE_LOCK_FORWARD_PORT, Constants.LIFT_CARRIAGE_LOCK_REVERSE_PORT);
 
     private DigitalInput bannerSensor = new DigitalInput(Constants.LIFT_BANNER_SENSOR);
 
-    private Solenoid liftShifter = new Solenoid(Constants.LIFT_SHIFTER);
-
-
-
+    private Solenoid liftShifter = new Solenoid(Constants.LIFT_SHIFTER_PCM_PORT);
 
     public Lift() {
         liftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,
                 10);
 
-        liftMaster.configForwardSoftLimitThreshold(Constants.LIFT_FORWARD_LIM, 10);
+        liftMaster.configForwardSoftLimitThreshold(Constants.LIFT_MAX_HEIGHT, 10);
         liftMaster.configForwardSoftLimitEnable(true, 10);
 
-        liftMaster.config_kP(0, 0.26, 10);
-        liftMaster.config_kI(0,3.2*Math.pow(10,-5),10);
-        liftMaster.config_kD(0, 30, 10);
-        liftMaster.config_IntegralZone(0,200,10);
-        liftMaster.config_kF(0, 0.024, 10);
+        liftMaster.config_kP(0, Constants.LIFT_P, 10);
+        liftMaster.config_kI(0,Constants.LIFT_I,10);
+        liftMaster.config_kD(0, Constants.LIFT_D, 10);
+        liftMaster.config_IntegralZone(0,Constants.LIFT_IZONE,10);
+        liftMaster.config_kF(0, Constants.LIFT_FEEDFORWARD, 10);
 
-        liftMaster.configClosedloopRamp(0.22, 10);
+        liftMaster.configClosedloopRamp(Constants.LIFT_RAMP_RATE, 10);
 
-        liftMaster.configPeakOutputForward(1.0, 10);
-        liftMaster.configPeakOutputReverse(-0.4, 10);
+        liftMaster.configPeakOutputForward(Constants.LIFT_MAX_FORWARD_OUTPUT, 10);
+        liftMaster.configPeakOutputReverse(Constants.LIFT_MAX_REVERSE_OUTPUT, 10);
 
         liftMaster.setNeutralMode(NeutralMode.Brake);
 
@@ -60,23 +69,12 @@ public class Lift extends Subsystem {
             liftMaster.setSensorPhase(true);
         }
 
-        lift1.follow(liftMaster);
-        lift2.follow(liftMaster);
-        lift3.follow(liftMaster);
-        lift4.follow(liftMaster);
+        liftSlave1.follow(liftMaster);
+        liftSlave2.follow(liftMaster);
+        liftSlave3.follow(liftMaster);
+        liftSlave4.follow(liftMaster);
 
         unlockSecondStage();
-    }
-
-    public void sendToDashboard() {
-
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("Lift");
-        table.getEntry("lift pos: ").setNumber(getPosition());
-        table.getEntry("lift control mode: ").setString(liftMaster.getControlMode().toString());
-        table.getEntry("lift percent mode: ").setNumber(liftMaster.getMotorOutputPercent());
-        table.getEntry("lift percent output: ").setNumber(liftMaster.getMotorOutputPercent());
-        table.getEntry("lift banner sensor: ").setBoolean(bannerSensor.get());
-        table.getEntry("banner sensor trigger: ").setBoolean(bannerSensor.isAnalogTrigger());
     }
 
     public void zeroLift() {
@@ -99,10 +97,6 @@ public class Lift extends Subsystem {
 
     public boolean isAtBottom() {
         return bannerSensor.get();
-    }
-
-    public double getError() {
-        return liftMaster.getClosedLoopError(0);
     }
 
     public void unlockSecondStage() {

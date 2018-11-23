@@ -1,10 +1,12 @@
 package org.usfirst.frc.team3309.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team4322.commandv2.Command;
 
+/*
+ * This command handles moving the lift in autonomous.
+ */
 public class Lift_Elevate extends Command {
 
     private double goalPos;
@@ -15,7 +17,7 @@ public class Lift_Elevate extends Command {
     }
 
     public Lift_Elevate(double goalPos, double timeout) {
-        super((long)timeout*1000);
+        super(timeout);
         this.goalPos = goalPos;
         require(Robot.lift);
     }

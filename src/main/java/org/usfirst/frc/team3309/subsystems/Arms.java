@@ -1,16 +1,24 @@
 package org.usfirst.frc.team3309.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
+import kotlin.Pair;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
+import org.usfirst.frc.team4322.logging.RobotPerformanceData;
 
+/*
+ * Arms subsystem.
+ * Just 1 DoubleSolenoid.
+ */
 public class Arms extends Subsystem {
 
-    private DoubleSolenoid actuator = new DoubleSolenoid(Constants.ARMS_ACTUATOR_A,
-            Constants.ARMS_ACTUATOR_B);
+    private DoubleSolenoid actuator = new DoubleSolenoid(Constants.ARMS_PISTON_FORWARD_PORT,
+            Constants.ARMS_PISTON_REVERSE_PORT);
 
-    private Solenoid otherActuator = new Solenoid(Constants.ARMS_OTHER_ACTUATOR);
+    public Arms() {
+        RobotPerformanceData.addToLog(() -> new Pair<String,Object>("Arm Actuator Value: ",actuator.get().toString())
+        );
+    }
 
     public void openArms() {
         actuator.set(DoubleSolenoid.Value.kReverse);
@@ -19,13 +27,4 @@ public class Arms extends Subsystem {
     public void clampArms() {
         actuator.set(DoubleSolenoid.Value.kForward);
     }
-
-    public void middleArms() {
-        actuator.set(DoubleSolenoid.Value.kForward);
-    }
-
-    public boolean isArmsClosed() {
-        return actuator.get() == DoubleSolenoid.Value.kReverse;
-    }
-
 }

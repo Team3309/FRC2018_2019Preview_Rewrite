@@ -6,12 +6,12 @@ import org.usfirst.frc.team4322.commandv2.Command;
 public class FalconDoors_Deploy extends Command {
 
     public FalconDoors_Deploy() {
-        require(Robot.falconDoors);
+        require(Robot.falconDoor);
     }
 
     @Override
     protected void execute() {
-        Robot.falconDoors.setDown();
+        Robot.falconDoor.release();
     }
 
     @Override

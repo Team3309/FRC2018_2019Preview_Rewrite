@@ -38,8 +38,8 @@ public class DriveBase_DriveManual extends Command {
 
     @Override
     protected void execute() {
-        double turn = Robot.oi.getRightJoystick().getX();
-        double throttle = Robot.oi.getLeftJoystick().getY();
+        double turn = Robot.oi.getRightJoystick().getXAxis().get();
+        double throttle = Robot.oi.getLeftJoystick().getYAxis().get();
         boolean isHighGear = Robot.driveBase.inHighGear();
         boolean isQuickTurn = Robot.oi.getLeftJoystick().getTrigger().get();
 

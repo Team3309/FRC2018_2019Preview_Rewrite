@@ -8,10 +8,15 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import kotlin.Pair;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
+import org.usfirst.frc.team4322.logging.RobotPerformanceData;
 
+/*
+ * The DriveBase subsystem. This is the big one.
+ * The drivebase has 6 motor controllers, one solenoid, and 1 navx
+ */
 public class DriveBase extends Subsystem {
 
     private TalonSRX driveLeftMaster,driveRightMaster;
@@ -21,23 +26,18 @@ public class DriveBase extends Subsystem {
     private AHRS navx;
 
     public DriveBase() {
-        driveLeftMaster = new TalonSRX(Constants.DRIVE_LEFT_0_ID);
-        driveLeftSlave1 = new VictorSPX(Constants.DRIVE_LEFT_1_ID);
-        driveLeftSlave2 = new VictorSPX(Constants.DRIVE_LEFT_2_ID);
-        driveRightMaster = new TalonSRX(Constants.DRIVE_RIGHT_0_ID);
-        driveRightSlave1 = new VictorSPX(Constants.DRIVE_RIGHT_1_ID);
-        driveRightSlave2 = new VictorSPX(Constants.DRIVE_RIGHT_2_ID);
-        shifter = new Solenoid(Constants.DRIVE_SHIFTER);
+        driveLeftMaster = new TalonSRX(Constants.DRIVE_LEFT_MASTER_TALON_ID);
+        driveLeftSlave1 = new VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_1_ID);
+        driveLeftSlave2 = new VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_2_ID);
+        driveRightMaster = new TalonSRX(Constants.DRIVE_RIGHT_MASTER_TALON_ID);
+        driveRightSlave1 = new VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_1_ID);
+        driveRightSlave2 = new VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_2_ID);
+        shifter = new Solenoid(Constants.DRIVE_SHIFTER_PCM_PORT);
         navx = new AHRS(SPI.Port.kMXP);
 
         //Configure Left Side of Drive
-        driveLeftMaster.configPeakOutputForward(1.0, 10);
-        driveLeftMaster.configPeakOutputReverse(-1.0, 10);
-        driveLeftMaster.configNominalOutputForward(0.0, 10);
-        driveLeftMaster.configNominalOutputReverse(-0.0, 10);
         driveLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        driveLeftMaster.configOpenloopRamp(0, 10);
-        driveLeftMaster.configMotionAcceleration(30000, 10);
+        driveLeftMaster.configMotionAcceleration(Constants.DRIVEBASE_ACCELERATION, 10);
         driveLeftMaster.config_kP(0, Constants.DRIVEBASE_P, 10);
         driveLeftMaster.config_kD(0, Constants.DRIVEBASE_I, 10);
         driveLeftMaster.config_kF(0, Constants.DRIVEBASE_D, 10);
@@ -47,13 +47,8 @@ public class DriveBase extends Subsystem {
         driveLeftSlave2.follow(driveLeftMaster);
 
         //Configure Right Side of Drive
-        driveRightMaster.configPeakOutputForward(1.0, 10);
-        driveRightMaster.configPeakOutputReverse(-1.0, 10);
-        driveRightMaster.configNominalOutputForward(0.0, 10);
-        driveRightMaster.configNominalOutputReverse(-0.0, 10);
         driveRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        driveRightMaster.configOpenloopRamp(0, 10);
-        driveRightMaster.configMotionAcceleration(30000, 10);
+        driveRightMaster.configMotionAcceleration(Constants.DRIVEBASE_ACCELERATION, 10);
         driveRightMaster.config_kP(0, Constants.DRIVEBASE_P, 10);
         driveRightMaster.config_kD(0, Constants.DRIVEBASE_I, 10);
         driveRightMaster.config_kF(0, Constants.DRIVEBASE_D, 10);
@@ -61,6 +56,17 @@ public class DriveBase extends Subsystem {
 
         driveRightSlave1.follow(driveRightMaster);
         driveRightSlave2.follow(driveRightMaster);
+
+        RobotPerformanceData.addToLog(
+                () -> new Pair<String,Object>("DriveBase Left Position: ", getLeftPosition()),
+                () -> new Pair<String,Object>("DriveBase Left Velocity: ",getLeftVelocity()),
+                () -> new Pair<String,Object>("DriveBase Left Error: ",driveLeftMaster.getClosedLoopError()),
+                () -> new Pair<String,Object>("DriveBase Right Position: ", getRightPosition()),
+                () -> new Pair<String,Object>("DriveBase Right Velocity: ",getRightVelocity()),
+                () -> new Pair<String,Object>("DriveBase Right Error: ",driveRightMaster.getClosedLoopError()),
+                () -> new Pair<String,Object>("Angular Velocity: ", getAngularVelocity()),
+                () -> new Pair<String,Object>("Angular Position: ", getAngularPosition())
+                );
     }
 
 
@@ -86,15 +92,15 @@ public class DriveBase extends Subsystem {
         navx.zeroYaw();
     }
 
-    public double getEncoderPos() {
-        return (getLeftEncoder() + getRightEncoder()) / 2.0;
+    public double getPosition() {
+        return (getLeftPosition() + getRightPosition()) / 2.0;
     }
 
-    public double getLeftEncoder() {
+    public double getLeftPosition() {
         return driveLeftMaster.getSelectedSensorPosition(0);
     }
 
-    public double getRightEncoder() {
+    public double getRightPosition() {
         return -driveRightMaster.getSelectedSensorPosition(0);
     }
 
@@ -110,11 +116,11 @@ public class DriveBase extends Subsystem {
         return -driveRightMaster.getSelectedSensorVelocity(0);
     }
 
-    public double getAngPos() {
+    public double getAngularPosition() {
         return -navx.getAngle();
     }
 
-    public double getAngVel() {
+    public double getAngularVelocity() {
         return navx.getRate();
     }
 

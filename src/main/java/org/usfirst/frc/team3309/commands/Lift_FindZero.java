@@ -4,10 +4,15 @@ import edu.wpi.first.wpilibj.Timer;
 import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team4322.commandv2.Command;
 
+/*
+ * This command ensures that the lift is unable to move
+ * until we have established the bottom position as zero.
+ */
 public class Lift_FindZero extends Command {
 
     private double start = Double.POSITIVE_INFINITY;
-    private final double DESIRED_TIME_ELUDED = 0.3;
+    //this is how long we want the sensor to be positive for before we
+    private final double DESIRED_TIME_ELAPSED = 0.3;
     private boolean hasStarted = false;
 
     private boolean isZeroed = false;
@@ -20,7 +25,7 @@ public class Lift_FindZero extends Command {
                 hasStarted = true;
             } else {
                 double timeEluded = Timer.getFPGATimestamp() - start;
-                if (timeEluded > DESIRED_TIME_ELUDED) {
+                if (timeEluded > DESIRED_TIME_ELAPSED) {
                     Robot.lift.zeroLift();
                     hasStarted = false;
                 }

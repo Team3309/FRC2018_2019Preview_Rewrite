@@ -7,16 +7,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import kotlin.Pair;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 
 import org.usfirst.frc.team3309.Constants;
+import org.usfirst.frc.team4322.logging.RobotPerformanceData;
 
+/*
+ * This is the Beltbar subsystem.
+ * The beltbar has 1 talon.
+ */
 public class BeltBar extends Subsystem {
 
     private TalonSRX masterBar = new TalonSRX(Constants.BELTBAR_TALON_ID);
-
-
-
 
     private boolean disabledForClimb = false;
 
@@ -26,23 +29,29 @@ public class BeltBar extends Subsystem {
 
         masterBar.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
 
-        masterBar.config_kP(0, 3, 10);
-        masterBar.config_kI(0, 0, 10);
-        masterBar.config_kD(0, 0.5, 10);
-        masterBar.config_kF(0, 0.04, 10);
-        masterBar.config_IntegralZone(0, 0, 0);
-        masterBar.clearStickyFaults(10);
+        masterBar.config_kP(0, Constants.BELTBAR_P, 10);
+        masterBar.config_kI(0, Constants.BELTBAR_I, 10);
+        masterBar.config_kD(0, Constants.BELTBAR_D, 10);
+        masterBar.config_kF(0, Constants.BELTBAR_FEEDFORWARD, 10);
+        masterBar.config_IntegralZone(0, Constants.BELTBAR_IZONE, 0);
 
-
-        masterBar.configForwardSoftLimitThreshold(Constants.BELTBAR_FORWARD_SOFT_LIM, 10);
-        masterBar.configForwardSoftLimitEnable(false, 10);
-        masterBar.configReverseSoftLimitThreshold(Constants.BELTBAR_REVERSE_SOFT_LIM, 10);
-        masterBar.configReverseSoftLimitEnable(false, 10);
+        masterBar.configForwardSoftLimitThreshold(Constants.BELTBAR_FORWARD_SOFT_LIMIT, 10);
+        masterBar.configForwardSoftLimitEnable(true, 10);
+        masterBar.configReverseSoftLimitThreshold(Constants.BELTBAR_REVERSE_SOFT_LIMIT, 10);
+        masterBar.configReverseSoftLimitEnable(true, 10);
         masterBar.setNeutralMode(NeutralMode.Brake);
         masterBar.configPeakCurrentLimit(Constants.BELTBAR_MAX_CURRENT, 10);
         masterBar.configPeakCurrentDuration(Constants.BELTBAR_MAX_CURRENT_DURATION, 10);
-        masterBar.configContinuousCurrentLimit(1, 10);
+        masterBar.configContinuousCurrentLimit(Constants.BELTBAR_MAX_CONTINUOUS_CURRENT, 10);
         masterBar.enableCurrentLimit(true);
+
+        RobotPerformanceData.addToLog(
+                () -> new Pair<String,Object>("Beltbar Current Draw: ",masterBar.getOutputCurrent()),
+                () -> new Pair<String,Object>("Beltbar Encoder Position: ",getPosition()),
+                () -> new Pair<String,Object>("Beltbar Raw Output: ",masterBar.getMotorOutputPercent()),
+                () -> new Pair<String,Object>("Beltbar Error: ",masterBar.getClosedLoopError())
+        );
+
 
     }
 
@@ -51,17 +60,6 @@ public class BeltBar extends Subsystem {
         masterBar.set(ControlMode.Disabled,0);
         masterBar.configForwardSoftLimitEnable(false, 10);
         masterBar.configReverseSoftLimitEnable(false, 10);
-    }
-
-
-    public void sendToDashboard() {
-        ShuffleboardTab beltbar = Shuffleboard.getTab("Beltbar");
-        beltbar.add("Position: ", getPosition());
-        ShuffleboardLayout talonInfo = beltbar.getLayout("List","Talon Values");
-        talonInfo.add("Raw Output: ",masterBar.getMotorOutputPercent());
-        talonInfo.add("Control Mode: ",masterBar.getControlMode().toString());
-        talonInfo.add("Current Draw: ",masterBar.getOutputCurrent());
-        Shuffleboard.update();
     }
 
     public void set(ControlMode controlMode, double value) {
