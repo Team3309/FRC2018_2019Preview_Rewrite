@@ -15,7 +15,7 @@ allprojects {
     }
 }
 
-def ROBOT_MAIN_CLASS = "org.usfirst.frc.friarbots.Robot"
+def ROBOT_MAIN_CLASS = "org.usfirst.frc.team3309.Robot"
 
 deploy {
     targets {
@@ -50,8 +50,8 @@ dependencies {
     nativeDesktopZip jniDesktopVendorLibraries()
     testCompile 'junit:junit:4.12'
     compile "com.ctre.frcbeta.phoenix:api-java:5.9.2"
-    compile "com.kauailabs.navx.frc:navx-java:3.1.331"
-    compile "com.github.Nico1999:4322Utils:2019-0.0.4-alpha"
+    compile "com.kauailabs.navx.frc:navx-java:3.1.336"
+    compile "com.github.Nico1999:4322Utils:2019-0.0.8-alpha"
 }
 
 jar {

@@ -126,7 +126,7 @@ public class Constants {
     //= LIFT TUNING VALUES =
     //======================
 
-    public static final int LIFT_MAX_HEIGHT = 47000;
+    public static final int LIFT_MAX_HEIGHT = 44000;
     public static final double LIFT_NUDGE_SPEED = 6955; // viva chile!
 
     public static final double LIFT_P = 0.26;
@@ -146,7 +146,7 @@ public class Constants {
     public static double LIFT_SWITCH_POSITION = 15000;
     public static double LIFT_SCALE_LOW_POSITION = 31000;
     public static double LIFT_SCALE_MIDDLE_POSITION = 36000;
-    public static double LIFT_SCALE_HIGH_POSITION = 40000;
+    public static double LIFT_SCALE_HIGH_POSITION = 39000;
 
     //=========================
     //= BELTBAR PORT MAPPINGS =
@@ -165,11 +165,11 @@ public class Constants {
     public static int BELTBAR_FORWARD_SOFT_LIMIT;
     public static int BELTBAR_REVERSE_SOFT_LIMIT;
 
-    public static final double BELTBAR_P = 3;
+    public static final double BELTBAR_P = 0.7;
     public static final double BELTBAR_I = 0;
-    public static final double BELTBAR_D = 0.5;
+    public static final double BELTBAR_D = 0;
     public static final int BELTBAR_IZONE = 0;
-    public static final double BELTBAR_FEEDFORWARD = 0.04;
+    public static final double BELTBAR_FEEDFORWARD = 0.03;
 
     public static double BELTBAR_BOTTOM_POSITION;
     public static double BELTBAR_INTAKE_POSITION;
@@ -189,7 +189,7 @@ public class Constants {
     //= LED PORT MAPPINGS =
     //=====================
 
-    public static final int LED_CHANNEL = 0;
+    public static final int LED_CHANNEL = 1;
 
     /*
      * This function populates values that have a robot specific value.
@@ -209,15 +209,15 @@ public class Constants {
         }
 
         if (Constants.currentRobot == Constants.Robot.COMPETITION) {
-            BELTBAR_REVERSE_SOFT_LIMIT = -3200;
-            BELTBAR_FORWARD_SOFT_LIMIT = -200;
-            BELTBAR_BOTTOM_POSITION = -2700;
-            BELTBAR_INTAKE_POSITION = -1500;
-            BELTBAR_EXCHANGE_POSITION = -1700;
-            BELTBAR_EJECT_POSITION = -2300;
-            BELTBAR_SCALE_HIGH_POSITION = -2500;
-            BELTBAR_SWITCH_POSITION = -1900;
-            BELTBAR_CLIMB_POSITION = -2700;
+            BELTBAR_REVERSE_SOFT_LIMIT = -4700;
+            BELTBAR_FORWARD_SOFT_LIMIT = -3050;
+            BELTBAR_BOTTOM_POSITION = -4500;
+            BELTBAR_INTAKE_POSITION = -3350;
+            BELTBAR_EXCHANGE_POSITION = -3600;
+            BELTBAR_EJECT_POSITION = -4100;
+            BELTBAR_SCALE_HIGH_POSITION = -4300;
+            BELTBAR_SWITCH_POSITION = -3500;
+            BELTBAR_CLIMB_POSITION = -4500;
         }
 
     }

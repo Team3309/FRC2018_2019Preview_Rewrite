@@ -45,12 +45,12 @@ public class BeltBar extends Subsystem {
         masterBar.configContinuousCurrentLimit(Constants.BELTBAR_MAX_CONTINUOUS_CURRENT, 10);
         masterBar.enableCurrentLimit(true);
 
-        RobotPerformanceData.addToLog(
-                () -> new Pair<String,Object>("Beltbar Current Draw: ",masterBar.getOutputCurrent()),
-                () -> new Pair<String,Object>("Beltbar Encoder Position: ",getPosition()),
-                () -> new Pair<String,Object>("Beltbar Raw Output: ",masterBar.getMotorOutputPercent()),
-                () -> new Pair<String,Object>("Beltbar Error: ",masterBar.getClosedLoopError())
-        );
+//        RobotPerformanceData.addToLog(
+//                () -> new Pair<String,Object>("Beltbar Current Draw: ",masterBar.getOutputCurrent()),
+//                () -> new Pair<String,Object>("Beltbar Encoder Position: ",getPosition()),
+//                () -> new Pair<String,Object>("Beltbar Raw Output: ",masterBar.getMotorOutputPercent()),
+//                () -> new Pair<String,Object>("Beltbar Error: ",masterBar.getClosedLoopError())
+//        );
 
 
     }

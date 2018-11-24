@@ -3,6 +3,7 @@ package org.usfirst.frc.team3309;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import org.usfirst.frc.team3309.commands.DriveBase_DriveManual;
+import org.usfirst.frc.team3309.commands.Intake_Teleop;
 import org.usfirst.frc.team3309.commands.Lift_FindZero;
 import org.usfirst.frc.team3309.subsystems.*;
 import org.usfirst.frc.team4322.commandv2.Trigger;
@@ -33,8 +34,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        super.robotInit();
-
         Constants.configureRobotSpecificConstants();
         arms = new Arms();
         beltBar = new BeltBar();
@@ -44,6 +43,11 @@ public class Robot extends TimedRobot {
         led = new LED();
         lift = new Lift();
         oi = new OI();
+
+        //Invert the drive stick axes.
+        oi.getLeftJoystick().getYAxis().setRampFunction((x) -> -x);
+        oi.getRightJoystick().getXAxis().setRampFunction((x) -> -x);
+        oi.getOperatorController().getLeftStick().getY().setRampFunction((x) -> -x);
     }
 
     /*
@@ -52,7 +56,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        super.disabledInit();
         arms.resetCommandQueue();
         beltBar.resetCommandQueue();
         driveBase.resetCommandQueue();
@@ -62,6 +65,7 @@ public class Robot extends TimedRobot {
         intake.resetCommandQueue();
         new DriveBase_DriveManual().start();
         new Lift_FindZero().start();
+        new Intake_Teleop().start();
     }
 
     /*
@@ -70,7 +74,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledPeriodic() {
-        super.disabledPeriodic();
         RobotPerformanceData.update();
         Trigger.updateTriggers();
     }
@@ -81,7 +84,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        super.autonomousInit();
     }
 
     /*
@@ -90,7 +92,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        super.autonomousPeriodic();
         RobotPerformanceData.update();
         Trigger.updateTriggers();
     }
@@ -101,7 +102,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
-        super.teleopInit();
+        new DriveBase_DriveManual().start();
     }
 
     /*
@@ -111,7 +112,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        super.teleopPeriodic();
         Trigger.updateTriggers();
         RobotPerformanceData.update();
     }
@@ -122,7 +122,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testInit() {
-        super.testInit();
     }
 
 
@@ -132,7 +131,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
-        super.testPeriodic();
     }
 
     /*

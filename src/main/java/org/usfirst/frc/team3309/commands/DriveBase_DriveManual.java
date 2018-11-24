@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3309.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.usfirst.frc.team3309.OI;
+import kotlin.Unit;
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.Deferred;
+import org.jetbrains.annotations.NotNull;
 import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team3309.Robot;
 public class DriveBase_DriveManual extends Command {

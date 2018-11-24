@@ -57,16 +57,16 @@ public class DriveBase extends Subsystem {
         driveRightSlave1.follow(driveRightMaster);
         driveRightSlave2.follow(driveRightMaster);
 
-        RobotPerformanceData.addToLog(
-                () -> new Pair<String,Object>("DriveBase Left Position: ", getLeftPosition()),
-                () -> new Pair<String,Object>("DriveBase Left Velocity: ",getLeftVelocity()),
-                () -> new Pair<String,Object>("DriveBase Left Error: ",driveLeftMaster.getClosedLoopError()),
-                () -> new Pair<String,Object>("DriveBase Right Position: ", getRightPosition()),
-                () -> new Pair<String,Object>("DriveBase Right Velocity: ",getRightVelocity()),
-                () -> new Pair<String,Object>("DriveBase Right Error: ",driveRightMaster.getClosedLoopError()),
-                () -> new Pair<String,Object>("Angular Velocity: ", getAngularVelocity()),
-                () -> new Pair<String,Object>("Angular Position: ", getAngularPosition())
-                );
+//        RobotPerformanceData.addToLog(
+//                () -> new Pair<String,Object>("DriveBase Left Position: ", getLeftPosition()),
+//                () -> new Pair<String,Object>("DriveBase Left Velocity: ",getLeftVelocity()),
+//                () -> new Pair<String,Object>("DriveBase Left Error: ",driveLeftMaster.getClosedLoopError()),
+//                () -> new Pair<String,Object>("DriveBase Right Position: ", getRightPosition()),
+//                () -> new Pair<String,Object>("DriveBase Right Velocity: ",getRightVelocity()),
+//                () -> new Pair<String,Object>("DriveBase Right Error: ",driveRightMaster.getClosedLoopError()),
+//                () -> new Pair<String,Object>("Angular Velocity: ", getAngularVelocity()),
+//                () -> new Pair<String,Object>("Angular Position: ", getAngularPosition())
+//                );
     }
 
 

@@ -211,20 +211,21 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.frcbeta.phoenix/api-java/5.9.2/1b5e0f542a23a23dcb5086b278674c13ecc1937/api-java-5.9.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.0.4-alpha">
+    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.0.8-alpha">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.0.4-alpha/949999feb31b9b8181df83a0a928bd88112c8fa2/4322Utils-2019-0.0.4-alpha.jar!/" />
+        <root url="file://$PROJECT_DIR$/Could not resolve com.github.Nico1999:4322Utils:2019-0.0.8-alpha." />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.0.8-alpha/b09dd2e491e1d0549b0b72cbed854dbfba45f702/4322Utils-2019-0.0.8-alpha.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: com.kauailabs.navx.frc:navx-java:3.1.331">
+    <library name="Gradle: com.kauailabs.navx.frc:navx-java:3.1.336">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kauailabs.navx.frc/navx-java/3.1.331/74f14f096b13e2c6ea16adca7ffc1cf4344f5065/navx-java-3.1.331.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kauailabs.navx.frc/navx-java/3.1.336/13186d1190af0dbd59d2b4d936d568828e9713da/navx-java-3.1.336.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kauailabs.navx.frc/navx-java/3.1.331/fa2c4e4e05172bc966d492ebfdf0d70582f23427/navx-java-3.1.331-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kauailabs.navx.frc/navx-java/3.1.336/55760aeefb213d22fb535dbff20aaf65ebc9139c/navx-java-3.1.336-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.cameraserver:cameraserver-java:2019.1.1-beta-2">

@@ -47,9 +47,9 @@ public class Lift extends Subsystem {
         liftMaster.configForwardSoftLimitEnable(true, 10);
 
         liftMaster.config_kP(0, Constants.LIFT_P, 10);
-        liftMaster.config_kI(0,Constants.LIFT_I,10);
+        liftMaster.config_kI(0, Constants.LIFT_I, 10);
         liftMaster.config_kD(0, Constants.LIFT_D, 10);
-        liftMaster.config_IntegralZone(0,Constants.LIFT_IZONE,10);
+        liftMaster.config_IntegralZone(0, Constants.LIFT_IZONE, 10);
         liftMaster.config_kF(0, Constants.LIFT_FEEDFORWARD, 10);
 
         liftMaster.configClosedloopRamp(Constants.LIFT_RAMP_RATE, 10);
@@ -59,12 +59,12 @@ public class Lift extends Subsystem {
 
         liftMaster.setNeutralMode(NeutralMode.Brake);
 
-        if(Constants.currentRobot == Constants.Robot.PRACTICE) {
+        if (Constants.currentRobot == Constants.Robot.PRACTICE) {
             liftMaster.setSensorPhase(true);
             liftMaster.setInverted(false);
         }
 
-        if(Constants.currentRobot == Constants.Robot.COMPETITION) {
+        if (Constants.currentRobot == Constants.Robot.COMPETITION) {
             liftMaster.setInverted(false);
             liftMaster.setSensorPhase(true);
         }
@@ -75,6 +75,7 @@ public class Lift extends Subsystem {
         liftSlave4.follow(liftMaster);
 
         unlockSecondStage();
+        setLiftShifter(true);
     }
 
     public void zeroLift() {

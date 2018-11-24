@@ -16,8 +16,8 @@ public class Arms extends Subsystem {
             Constants.ARMS_PISTON_REVERSE_PORT);
 
     public Arms() {
-        RobotPerformanceData.addToLog(() -> new Pair<String,Object>("Arm Actuator Value: ",actuator.get().toString())
-        );
+//        RobotPerformanceData.addToLog(() -> new Pair<String,Object>("Arm Actuator Value: ",actuator.get().toString())
+//        );
     }
 
     public void openArms() {

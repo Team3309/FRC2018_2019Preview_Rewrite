@@ -24,7 +24,7 @@ class OI {
 
         /* =====OPERATOR===== */
         operatorController.a.whenPressed(Arms_Clamp())
-        operatorController.a.whenPressed(Arms_Open())
+        operatorController.b.whenPressed(Arms_Open())
 
         operatorController.start.whenPressed(Lift_LockSecondStage())
         operatorController.back.whenPressed(FalconDoors_Deploy())

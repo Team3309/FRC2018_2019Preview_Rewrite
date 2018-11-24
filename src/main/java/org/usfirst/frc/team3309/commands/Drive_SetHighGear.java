@@ -9,7 +9,7 @@ public class Drive_SetHighGear extends Command {
     }
 
     @Override
-    protected void execute() {
+    protected void initialize() {
         Robot.driveBase.setHighGear();
     }
 
