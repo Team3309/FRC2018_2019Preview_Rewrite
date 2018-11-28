@@ -51,7 +51,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.ctre.frcbeta.phoenix:api-java:5.9.2"
     compile "com.kauailabs.navx.frc:navx-java:3.1.336"
-    compile "com.github.Nico1999:4322Utils:2019-0.0.8-alpha"
+    compile "com.github.Nico1999:4322Utils:2019-0.1.1-alpha"
 }
 
 jar {

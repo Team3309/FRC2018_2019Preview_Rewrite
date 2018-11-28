@@ -1,12 +1,9 @@
 package org.usfirst.frc.team3309.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import kotlin.Unit;
-import kotlinx.coroutines.CoroutineScope;
-import kotlinx.coroutines.Deferred;
-import org.jetbrains.annotations.NotNull;
 import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team3309.Robot;
+
 public class DriveBase_DriveManual extends Command {
 
     public DriveBase_DriveManual() {
@@ -36,7 +33,7 @@ public class DriveBase_DriveManual extends Command {
     private double negativeInertiaAccumlator = 0.0;
 
     private static double limit(double v, double limit) {
-        return (Math.abs(v) < limit) ? v : limit * (v < 0 ? -1 : 1);
+        return (Math.abs(v) < limit) ? v : Math.copySign(limit,v);
     }
 
     @Override
@@ -44,10 +41,7 @@ public class DriveBase_DriveManual extends Command {
         double turn = Robot.oi.getRightJoystick().getXAxis().get();
         double throttle = Robot.oi.getLeftJoystick().getYAxis().get();
         boolean isHighGear = Robot.driveBase.inHighGear();
-        boolean isQuickTurn = Robot.oi.getLeftJoystick().getTrigger().get();
-
-        turn = Math.abs(turn) < 0.04 ? 0 : turn;
-        throttle = Math.abs(throttle) < 0.02 ? 0 : throttle;
+        boolean isQuickTurn = Robot.oi.getRightJoystick().getTrigger().get();
 
         double negInertia = turn - oldTurn;
         oldTurn = turn;
@@ -123,8 +117,6 @@ public class DriveBase_DriveManual extends Command {
         }
 
         Robot.driveBase.setLeftRight(ControlMode.PercentOutput,linearPower+angularPower,linearPower-angularPower);
-
-
     }
 
     @Override

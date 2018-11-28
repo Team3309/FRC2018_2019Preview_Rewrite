@@ -1,11 +1,8 @@
 package org.usfirst.frc.team3309.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import kotlin.Pair;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
-import org.usfirst.frc.team4322.logging.RobotPerformanceData;
-
 /*
  * Arms subsystem.
  * Just 1 DoubleSolenoid.

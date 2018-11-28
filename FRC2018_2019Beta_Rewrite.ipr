@@ -20,6 +20,16 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="ExportableFileTemplateSettings">
+    <default_templates>
+      <template name="Gradle Kotlin DSL Build Script.gradle" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="Gradle Kotlin DSL Settings.gradle" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="JavaFXApplication.java" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="MobileResourceBundle.java" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="Singleton.java" reformat="true" live-template-enabled="false" enabled="false" />
+      <template name="XSLT Stylesheet.xsl" reformat="true" live-template-enabled="false" enabled="false" />
+    </default_templates>
+  </component>
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -195,6 +205,13 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="FRC2018_2019Beta_Rewrite" />
+      </set>
+    </option>
+  </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
@@ -211,10 +228,10 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.frcbeta.phoenix/api-java/5.9.2/1b5e0f542a23a23dcb5086b278674c13ecc1937/api-java-5.9.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.0.8-alpha">
+    <library name="Gradle: com.github.Nico1999:4322Utils:2019-0.1.1-alpha">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/Could not resolve com.github.Nico1999:4322Utils:2019-0.0.8-alpha." />
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.0.8-alpha/b09dd2e491e1d0549b0b72cbed854dbfba45f702/4322Utils-2019-0.0.8-alpha.jar!/" />
+        <root url="file://$PROJECT_DIR$/Could not find com.github.Nico1999:4322Utils:2019-0.1.1-alpha." />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.Nico1999/4322Utils/2019-0.1.1-alpha/18ae694ec7fc23bcc13521a16c741980801d2124/4322Utils-2019-0.1.1-alpha.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

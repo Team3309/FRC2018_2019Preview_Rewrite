@@ -100,11 +100,11 @@ public class Lift extends Subsystem {
         return bannerSensor.get();
     }
 
-    public void unlockSecondStage() {
+    public void lockSecondStage() {
         secondStageHolder.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void lockSecondStage() {
+    public void unlockSecondStage() {
         secondStageHolder.set(DoubleSolenoid.Value.kReverse);
     }
 
