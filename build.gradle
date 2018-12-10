@@ -3,7 +3,7 @@ plugins {
     id "idea"
     id "visual-studio"
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
-    id "edu.wpi.first.GradleRIO" version "2019.1.1-beta-2a"
+    id "edu.wpi.first.GradleRIO" version "2019.1.1-beta-3"
 }
 
 allprojects {
@@ -17,6 +17,8 @@ allprojects {
 
 def ROBOT_MAIN_CLASS = "org.usfirst.frc.team3309.Robot"
 
+// Define my targets (RoboRIO) and artifacts (deployable files)
+// This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
         roboRIO("roborio") {
@@ -24,14 +26,14 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = getTeamNumber()
+            team = frc.getTeamNumber()
         }
     }
     artifacts {
         frcJavaArtifact('frcJava') {
             targets << "roborio"
             // Debug can be overridden by command line, for use with VSCode
-            debug = getDebugOrDefault(false)
+            debug = frc.getDebugOrDefault(false)
         }
         // Built in artifact to deploy arbitrary files to the roboRIO.
         fileTreeArtifact('frcStaticFileDeploy') {
@@ -43,13 +45,14 @@ deploy {
         }
     }
 }
+
 dependencies {
-    compile wpilib()
-    compile javaVendorLibraries()
-    nativeZip jniRoboRIOVendorLibraries()
-    nativeDesktopZip jniDesktopVendorLibraries()
+    compile wpi.deps.wpilib()
+    compile wpi.deps.vendor.java()
+    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
-    compile "com.ctre.frcbeta.phoenix:api-java:5.9.2"
+    compile "com.ctre.frcbeta.phoenix:api-java:5.10.0"
     compile "com.kauailabs.navx.frc:navx-java:3.1.336"
     compile "com.github.Nico1999:4322Utils:2019-0.1.1-alpha"
 }
@@ -60,7 +63,6 @@ jar {
 }
 
 wrapper {
-    gradleVersion = '4.9'
+    gradleVersion = '5.0'
 }
-
 
