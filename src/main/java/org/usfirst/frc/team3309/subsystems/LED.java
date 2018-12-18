@@ -12,6 +12,10 @@ public class LED extends Subsystem {
 
     private DigitalOutput indicatorLight = new DigitalOutput(Constants.LED_CHANNEL);
 
+    public LED() {
+        addChild(indicatorLight);
+    }
+
     public void set(boolean on) {
         indicatorLight.set(true);
     }

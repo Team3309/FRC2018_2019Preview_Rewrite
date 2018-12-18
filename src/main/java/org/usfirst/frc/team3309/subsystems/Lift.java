@@ -74,6 +74,9 @@ public class Lift extends Subsystem {
         liftSlave3.follow(liftMaster);
         liftSlave4.follow(liftMaster);
 
+        addChild(liftMaster);
+        addChild(liftShifter);
+
         unlockSecondStage();
         setLiftShifter(true);
     }

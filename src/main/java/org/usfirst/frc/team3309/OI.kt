@@ -1,8 +1,12 @@
 package org.usfirst.frc.team3309
 
+import edu.wpi.first.wpilibj.Filesystem
+import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import org.usfirst.frc.team3309.commands.*
 import org.usfirst.frc.team4322.input.InputThrustmaster
 import org.usfirst.frc.team4322.input.InputXbox
+import org.usfirst.frc.team4322.motion.Trajectory
+import java.nio.file.FileSystem
 
 /*
  * OI is short for Operator Interface, and its in charge of managing the input devices the drivers use.
@@ -40,6 +44,9 @@ class OI {
         operatorController.dPad.up.whenPressed(Group_MoveAssembly.to(Constants.LIFT_SCALE_MIDDLE_POSITION, Constants.BELTBAR_EJECT_POSITION))
         operatorController.dPad.left.whenPressed(Group_MoveAssembly.to(Constants.LIFT_SCALE_HIGH_POSITION, Constants.BELTBAR_SCALE_HIGH_POSITION))
         operatorController.rb.whenPressed(Group_MoveAssembly.to(Constants.LIFT_EXCHANGE_POSITION, Constants.BELTBAR_EXCHANGE_POSITION))
+
+        LiveWindow.add(Auto_DriveRamsete(Trajectory.load(Filesystem.getDeployDirectory().absolutePath + "Drive10Feet.pf1.csv")!!))
+
     }
 
 }

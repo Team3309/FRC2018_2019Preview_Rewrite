@@ -3,15 +3,11 @@ package org.usfirst.frc.team3309.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import kotlin.Pair;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 
 import org.usfirst.frc.team3309.Constants;
-import org.usfirst.frc.team4322.logging.RobotPerformanceData;
 
 /*
  * This is the Beltbar subsystem.
@@ -19,7 +15,7 @@ import org.usfirst.frc.team4322.logging.RobotPerformanceData;
  */
 public class BeltBar extends Subsystem {
 
-    private TalonSRX masterBar = new TalonSRX(Constants.BELTBAR_TALON_ID);
+    private WPI_TalonSRX masterBar = new WPI_TalonSRX(Constants.BELTBAR_TALON_ID);
 
     private boolean disabledForClimb = false;
 
@@ -51,7 +47,7 @@ public class BeltBar extends Subsystem {
 //                () -> new Pair<String,Object>("Beltbar Raw Output: ",masterBar.getMotorOutputPercent()),
 //                () -> new Pair<String,Object>("Beltbar Error: ",masterBar.getClosedLoopError())
 //        );
-
+        addChild(masterBar);
 
     }
 

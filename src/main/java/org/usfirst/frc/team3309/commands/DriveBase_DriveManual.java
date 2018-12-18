@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3309.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team3309.Robot;
 
@@ -46,19 +45,11 @@ public class DriveBase_DriveManual extends Command {
         double negInertia = turn - oldTurn;
         oldTurn = turn;
 
-        double wheelNonLinearity;
+        double wheelNonLinearity = isHighGear ? highGearWheelNonLinearity : lowGearWheelNonLinearity;
+        double denominator = Math.sin(Math.PI / 2.0 * wheelNonLinearity);
 
-        if (isHighGear) {
-            wheelNonLinearity = highGearWheelNonLinearity;
-            final double denominator = Math.sin(Math.PI / 2.0 * wheelNonLinearity);
-            // Apply a sin function that's scaled to make it feel better.
-            turn = Math.sin(Math.PI / 2.0 * wheelNonLinearity * turn) / denominator;
-        } else {
-            wheelNonLinearity = lowGearWheelNonLinearity;
-            final double denominator = Math.sin(Math.PI / 2.0 * wheelNonLinearity);
-            // Apply a sin function that's scaled to make it feel better.
-            turn = Math.sin(Math.PI / 2.0 * wheelNonLinearity * turn) / denominator;
-        }
+        // Apply a sin function that's scaled to make it feel better.
+        turn = Math.sin(Math.PI / 2.0 * wheelNonLinearity * turn) / denominator;
 
         double sensitivity;
 
@@ -115,8 +106,7 @@ public class DriveBase_DriveManual extends Command {
                 quickStopAccumlator = 0.0;
             }
         }
-
-        Robot.driveBase.setLeftRight(ControlMode.PercentOutput,linearPower+angularPower,linearPower-angularPower);
+        Robot.driveBase.tankDrive(linearPower+angularPower,linearPower-angularPower);
     }
 
     @Override

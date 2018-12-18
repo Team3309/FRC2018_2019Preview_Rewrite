@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3309.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 /*
@@ -15,6 +16,7 @@ public class Arms extends Subsystem {
     public Arms() {
 //        RobotPerformanceData.addToLog(() -> new Pair<String,Object>("Arm Actuator Value: ",actuator.get().toString())
 //        );
+        addChild(actuator);
     }
 
     public void openArms() {

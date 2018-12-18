@@ -5,13 +5,18 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import kotlin.Pair;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 import org.usfirst.frc.team4322.logging.RobotPerformanceData;
+import org.usfirst.frc.team4322.motion.RobotPositionIntegrator;
 
 /*
  * The DriveBase subsystem. This is the big one.
@@ -19,21 +24,24 @@ import org.usfirst.frc.team4322.logging.RobotPerformanceData;
  */
 public class DriveBase extends Subsystem {
 
-    private TalonSRX driveLeftMaster,driveRightMaster;
-    private VictorSPX driveLeftSlave1,driveRightSlave1;
-    private VictorSPX driveLeftSlave2,driveRightSlave2;
+    private WPI_TalonSRX driveLeftMaster,driveRightMaster;
+    private WPI_VictorSPX driveLeftSlave1,driveRightSlave1;
+    private WPI_VictorSPX driveLeftSlave2,driveRightSlave2;
+    private DifferentialDrive drive;
     private Solenoid shifter;
     private AHRS navx;
 
     public DriveBase() {
-        driveLeftMaster = new TalonSRX(Constants.DRIVE_LEFT_MASTER_TALON_ID);
-        driveLeftSlave1 = new VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_1_ID);
-        driveLeftSlave2 = new VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_2_ID);
-        driveRightMaster = new TalonSRX(Constants.DRIVE_RIGHT_MASTER_TALON_ID);
-        driveRightSlave1 = new VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_1_ID);
-        driveRightSlave2 = new VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_2_ID);
+        driveLeftMaster = new WPI_TalonSRX(Constants.DRIVE_LEFT_MASTER_TALON_ID);
+        driveLeftSlave1 = new WPI_VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_1_ID);
+        driveLeftSlave2 = new WPI_VictorSPX(Constants.DRIVE_LEFT_SLAVE_VICTOR_2_ID);
+        driveRightMaster = new WPI_TalonSRX(Constants.DRIVE_RIGHT_MASTER_TALON_ID);
+        driveRightSlave1 = new WPI_VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_1_ID);
+        driveRightSlave2 = new WPI_VictorSPX(Constants.DRIVE_RIGHT_SLAVE_VICTOR_2_ID);
         shifter = new Solenoid(Constants.DRIVE_SHIFTER_PCM_PORT);
         navx = new AHRS(SPI.Port.kMXP);
+
+        drive = new DifferentialDrive(driveLeftMaster,driveRightMaster);
 
         //Configure Left Side of Drive
         driveLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -57,6 +65,11 @@ public class DriveBase extends Subsystem {
         driveRightSlave1.follow(driveRightMaster);
         driveRightSlave2.follow(driveRightMaster);
 
+        addChild(driveLeftMaster);
+        addChild(driveRightMaster);
+        addChild(drive);
+        addChild(shifter);
+        addChild(navx);
 //        RobotPerformanceData.addToLog(
 //                () -> new Pair<String,Object>("DriveBase Left Position: ", getLeftPosition()),
 //                () -> new Pair<String,Object>("DriveBase Left Velocity: ",getLeftVelocity()),
@@ -141,5 +154,13 @@ public class DriveBase extends Subsystem {
         driveRightMaster.set(mode,-right);
     }
 
+    @Override
+    public void periodic() {
+        RobotPositionIntegrator.update(Timer.getFPGATimestamp(),getLeftPosition(),getRightPosition(),getAngularPosition());
+    }
+
+    public void tankDrive(double left, double right) {
+        drive.tankDrive(left,right);
+    }
 
 }

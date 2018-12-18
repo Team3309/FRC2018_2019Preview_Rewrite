@@ -6,8 +6,7 @@ import org.usfirst.frc.team3309.commands.DriveBase_DriveManual;
 import org.usfirst.frc.team3309.commands.Intake_Teleop;
 import org.usfirst.frc.team3309.commands.Lift_FindZero;
 import org.usfirst.frc.team3309.subsystems.*;
-import org.usfirst.frc.team4322.commandv2.Trigger;
-import org.usfirst.frc.team4322.logging.RobotPerformanceData;
+import org.usfirst.frc.team4322.commandv2.Scheduler;
 
 /*
  * This is the Robot class.
@@ -15,8 +14,6 @@ import org.usfirst.frc.team4322.logging.RobotPerformanceData;
  */
 
 public class Robot extends TimedRobot {
-
-
 
     public static Arms arms;
     public static BeltBar beltBar;
@@ -56,13 +53,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        arms.resetCommandQueue();
-        beltBar.resetCommandQueue();
-        driveBase.resetCommandQueue();
-        falconDoor.resetCommandQueue();
-        led.resetCommandQueue();
-        lift.resetCommandQueue();
-        intake.resetCommandQueue();
+        Scheduler.killAllCommands();
         new DriveBase_DriveManual().start();
         new Lift_FindZero().start();
         new Intake_Teleop().start();
@@ -74,8 +65,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledPeriodic() {
-        RobotPerformanceData.update();
-        Trigger.updateTriggers();
     }
 
     /*
@@ -92,8 +81,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        RobotPerformanceData.update();
-        Trigger.updateTriggers();
     }
 
     /*
@@ -102,23 +89,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
-        new DriveBase_DriveManual().start();
+
     }
 
     /*
      * This function is called every 2 milliseconds while the robot is in autonomous.
      * It should be used to perform periodic tasks that need to be done while the robot is in teleop.
-     * one important task is calling Trigger.updateTriggers(), which loads new joystick data.
      */
     @Override
     public void teleopPeriodic() {
-        Trigger.updateTriggers();
-        RobotPerformanceData.update();
     }
 
     /*
      * This function is called when the Robot enters test mode.
-     * Test mode isn't really used much, so its ok to leave this blank.
      */
     @Override
     public void testInit() {
@@ -127,10 +110,17 @@ public class Robot extends TimedRobot {
 
     /*
      * This function is called every 2 milliseconds while the Robot is in test mode.
-     * Test mode isn't really used much, so its ok to leave this blank.
      */
     @Override
     public void testPeriodic() {
+    }
+
+    /*
+     * This function always runs, regardless of mode.
+     */
+    @Override
+    public void robotPeriodic() {
+        Scheduler.update();
     }
 
     /*
