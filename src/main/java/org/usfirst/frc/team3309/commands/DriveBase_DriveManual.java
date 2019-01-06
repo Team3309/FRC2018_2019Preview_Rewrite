@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3309.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team3309.Robot;
 
@@ -106,7 +107,7 @@ public class DriveBase_DriveManual extends Command {
                 quickStopAccumlator = 0.0;
             }
         }
-        Robot.driveBase.tankDrive(linearPower+angularPower,linearPower-angularPower);
+        Robot.driveBase.setLeftRight(ControlMode.PercentOutput,linearPower+angularPower,linearPower-angularPower);
     }
 
     @Override

@@ -3,6 +3,7 @@ package org.usfirst.frc.team3309.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import org.usfirst.frc.team3309.Constants;
+import org.usfirst.frc.team3309.commands.Intake_Teleop;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 
 /*
@@ -19,6 +20,10 @@ public class Intake extends Subsystem {
         rightMotor.set(ControlMode.Disabled,0);
         addChild(leftMotor);
         addChild(rightMotor);
+    }
+
+    public void initDefaultCommand() {
+        setDefaultCommand(new Intake_Teleop());
     }
 
     public void setLeftRight(double left, double right) {

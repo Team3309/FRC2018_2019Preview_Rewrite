@@ -29,7 +29,7 @@ public class BeltBar extends Subsystem {
         masterBar.config_kI(0, Constants.BELTBAR_I, 10);
         masterBar.config_kD(0, Constants.BELTBAR_D, 10);
         masterBar.config_kF(0, Constants.BELTBAR_FEEDFORWARD, 10);
-        masterBar.config_IntegralZone(0, Constants.BELTBAR_IZONE, 0);
+        masterBar.config_IntegralZone(0, Constants.BELTBAR_IZONE, 10);
 
         masterBar.configForwardSoftLimitThreshold(Constants.BELTBAR_FORWARD_SOFT_LIMIT, 10);
         masterBar.configForwardSoftLimitEnable(true, 10);

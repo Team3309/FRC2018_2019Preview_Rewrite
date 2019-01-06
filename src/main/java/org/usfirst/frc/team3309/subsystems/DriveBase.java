@@ -3,19 +3,16 @@ package org.usfirst.frc.team3309.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import kotlin.Pair;
 import org.usfirst.frc.team3309.Constants;
+import org.usfirst.frc.team3309.commands.DriveBase_DriveManual;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
-import org.usfirst.frc.team4322.logging.RobotPerformanceData;
 import org.usfirst.frc.team4322.motion.RobotPositionIntegrator;
 
 /*
@@ -27,7 +24,6 @@ public class DriveBase extends Subsystem {
     private WPI_TalonSRX driveLeftMaster,driveRightMaster;
     private WPI_VictorSPX driveLeftSlave1,driveRightSlave1;
     private WPI_VictorSPX driveLeftSlave2,driveRightSlave2;
-    private DifferentialDrive drive;
     private Solenoid shifter;
     private AHRS navx;
 
@@ -41,9 +37,8 @@ public class DriveBase extends Subsystem {
         shifter = new Solenoid(Constants.DRIVE_SHIFTER_PCM_PORT);
         navx = new AHRS(SPI.Port.kMXP);
 
-        drive = new DifferentialDrive(driveLeftMaster,driveRightMaster);
-
         //Configure Left Side of Drive
+        driveRightMaster.configFactoryDefault();
         driveLeftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         driveLeftMaster.configMotionAcceleration(Constants.DRIVEBASE_ACCELERATION, 10);
         driveLeftMaster.config_kP(0, Constants.DRIVEBASE_P, 10);
@@ -55,6 +50,7 @@ public class DriveBase extends Subsystem {
         driveLeftSlave2.follow(driveLeftMaster);
 
         //Configure Right Side of Drive
+        driveRightMaster.configFactoryDefault();
         driveRightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         driveRightMaster.configMotionAcceleration(Constants.DRIVEBASE_ACCELERATION, 10);
         driveRightMaster.config_kP(0, Constants.DRIVEBASE_P, 10);
@@ -67,7 +63,6 @@ public class DriveBase extends Subsystem {
 
         addChild(driveLeftMaster);
         addChild(driveRightMaster);
-        addChild(drive);
         addChild(shifter);
         addChild(navx);
 //        RobotPerformanceData.addToLog(
@@ -154,13 +149,13 @@ public class DriveBase extends Subsystem {
         driveRightMaster.set(mode,-right);
     }
 
-    @Override
-    public void periodic() {
-        RobotPositionIntegrator.update(Timer.getFPGATimestamp(),getLeftPosition(),getRightPosition(),getAngularPosition());
+    public void initDefaultCommand() {
+        setDefaultCommand(new DriveBase_DriveManual());
     }
 
-    public void tankDrive(double left, double right) {
-        drive.tankDrive(left,right);
+    @Override
+    public void periodic() {
+        RobotPositionIntegrator.update(Timer.getFPGATimestamp(),getLeftPosition()/12,getRightPosition()/12,getAngularPosition());
     }
 
 }

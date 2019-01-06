@@ -2,11 +2,11 @@ package org.usfirst.frc.team3309;
 
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
-import org.usfirst.frc.team3309.commands.DriveBase_DriveManual;
-import org.usfirst.frc.team3309.commands.Intake_Teleop;
-import org.usfirst.frc.team3309.commands.Lift_FindZero;
+import org.usfirst.frc.team3309.commands.Auto_DriveRamsete;
 import org.usfirst.frc.team3309.subsystems.*;
 import org.usfirst.frc.team4322.commandv2.Scheduler;
+import org.usfirst.frc.team4322.motion.RobotPositionIntegrator;
+import org.usfirst.frc.team4322.motion.Trajectory;
 
 /*
  * This is the Robot class.
@@ -41,6 +41,9 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         oi = new OI();
 
+        driveBase.initDefaultCommand();
+        arms.initDefaultCommand();
+        lift.initDefaultCommand();
         //Invert the drive stick axes.
         oi.getLeftJoystick().getYAxis().setRampFunction((x) -> -x);
         oi.getRightJoystick().getXAxis().setRampFunction((x) -> -x);
@@ -54,9 +57,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         Scheduler.killAllCommands();
-        new DriveBase_DriveManual().start();
-        new Lift_FindZero().start();
-        new Intake_Teleop().start();
     }
 
     /*
@@ -73,6 +73,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        new Auto_DriveRamsete(Trajectory.load("/home/lvuser/deploy/output/Drive10Feet.pf1.csv")).start();
     }
 
     /*

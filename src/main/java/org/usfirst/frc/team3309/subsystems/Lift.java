@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import org.usfirst.frc.team3309.commands.Lift_FindZero;
 import org.usfirst.frc.team4322.commandv2.Subsystem;
 import org.usfirst.frc.team3309.Constants;
 
@@ -84,6 +85,10 @@ public class Lift extends Subsystem {
     public void zeroLift() {
         liftMaster.setSelectedSensorPosition(0, 0, 0);
 
+    }
+
+    public void initDefaultCommand() {
+        setDefaultCommand(new Lift_FindZero());
     }
 
     public double getPosition() {
