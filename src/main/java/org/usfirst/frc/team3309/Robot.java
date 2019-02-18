@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import org.usfirst.frc.team3309.commands.Auto_DriveRamsete;
 import org.usfirst.frc.team3309.subsystems.*;
+import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team4322.commandv2.Scheduler;
-import org.usfirst.frc.team4322.motion.RobotPositionIntegrator;
+import org.usfirst.frc.team4322.dashboard.MapSynchronizer;
+import org.usfirst.frc.team4322.logging.RobotLogger;
 import org.usfirst.frc.team4322.motion.Trajectory;
 
 /*
@@ -41,9 +43,9 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         oi = new OI();
 
-        driveBase.initDefaultCommand();
-        arms.initDefaultCommand();
-        lift.initDefaultCommand();
+        Scheduler.initialize();
+        MapSynchronizer.INSTANCE.link(RobotLogger.class);
+        RobotLogger.INSTANCE.update();
         //Invert the drive stick axes.
         oi.getLeftJoystick().getYAxis().setRampFunction((x) -> -x);
         oi.getRightJoystick().getXAxis().setRampFunction((x) -> -x);
