@@ -14,7 +14,7 @@ public class Arms extends Subsystem {
             Constants.ARMS_PISTON_REVERSE_PORT);
 
     public Arms() {
-        addChild(actuator);
+//        addChild(actuator);
     }
 
     public void openArms() {

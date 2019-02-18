@@ -18,8 +18,8 @@ public class Intake extends Subsystem {
     public Intake() {
         leftMotor.set(ControlMode.Disabled,0);
         rightMotor.set(ControlMode.Disabled,0);
-        addChild(leftMotor);
-        addChild(rightMotor);
+//        addChild(leftMotor);
+//        addChild(rightMotor);
     }
 
     public void initDefaultCommand() {

@@ -60,11 +60,10 @@ public class DriveBase extends Subsystem {
 
         driveRightSlave1.follow(driveRightMaster);
         driveRightSlave2.follow(driveRightMaster);
-
-        addChild(driveLeftMaster);
-        addChild(driveRightMaster);
-        addChild(shifter);
-        addChild(navx);
+//        driveLeftMaster);
+//        addChild(driveRightMaster);
+//        addChild(shifter);
+//        addChild(navx);
     }
 
 

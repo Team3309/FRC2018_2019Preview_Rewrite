@@ -12,17 +12,17 @@ import org.usfirst.frc.team4322.motion.Trajectory
  */
 
 class OI {
-    var leftJoystick: InputThrustmaster = InputThrustmaster(0, InputThrustmaster.Hand.Left)
-    var rightJoystick: InputThrustmaster = InputThrustmaster(1, InputThrustmaster.Hand.Right)
-    var operatorController: InputXbox = InputXbox(2)
+//    var leftJoystick: InputThrustmaster = InputThrustmaster(0, InputThrustmaster.Hand.Left)
+//    var rightJoystick: InputThrustmaster = InputThrustmaster(1, InputThrustmaster.Hand.Right)
+    var driverController: InputXbox = InputXbox(0)
+    var operatorController: InputXbox = InputXbox(1)
 
     init {
         /* =====DRIVER===== */
-        leftJoystick.trigger.whenPressed(Drive_SetLowGear())
-        leftJoystick.trigger.whenReleased(Drive_SetHighGear())
+        driverController.lb.whenPressed(Drive_SetLowGear())
+        driverController.lb.whenReleased(Drive_SetHighGear())
 
-        leftJoystick.knobCluster.bottom.whileHeld(LED_On())
-        rightJoystick.knobCluster.bottom.whileHeld(LED_On())
+        driverController.a.whileHeld(LED_On())
 
         /* =====OPERATOR===== */
         operatorController.a.whenPressed(Arms_Clamp())
