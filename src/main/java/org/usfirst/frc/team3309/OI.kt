@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3309
 
 import edu.wpi.first.wpilibj.Filesystem
-import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import org.usfirst.frc.team3309.commands.*
 import org.usfirst.frc.team4322.input.InputThrustmaster
 import org.usfirst.frc.team4322.input.InputXbox

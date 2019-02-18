@@ -65,16 +65,6 @@ public class DriveBase extends Subsystem {
         addChild(driveRightMaster);
         addChild(shifter);
         addChild(navx);
-//        RobotPerformanceData.addToLog(
-//                () -> new Pair<String,Object>("DriveBase Left Position: ", getLeftPosition()),
-//                () -> new Pair<String,Object>("DriveBase Left Velocity: ",getLeftVelocity()),
-//                () -> new Pair<String,Object>("DriveBase Left Error: ",driveLeftMaster.getClosedLoopError()),
-//                () -> new Pair<String,Object>("DriveBase Right Position: ", getRightPosition()),
-//                () -> new Pair<String,Object>("DriveBase Right Velocity: ",getRightVelocity()),
-//                () -> new Pair<String,Object>("DriveBase Right Error: ",driveRightMaster.getClosedLoopError()),
-//                () -> new Pair<String,Object>("Angular Velocity: ", getAngularVelocity()),
-//                () -> new Pair<String,Object>("Angular Position: ", getAngularPosition())
-//                );
     }
 
 
@@ -93,6 +83,7 @@ public class DriveBase extends Subsystem {
         driveLeftMaster.setSelectedSensorPosition(0, 0,0);
         driveRightMaster.setSelectedSensorPosition(0, 0,0);
         navx.zeroYaw();
+        RobotPositionIntegrator.reset();
     }
 
 
@@ -155,7 +146,7 @@ public class DriveBase extends Subsystem {
 
     @Override
     public void periodic() {
-        RobotPositionIntegrator.update(Timer.getFPGATimestamp(),getLeftPosition()/12,getRightPosition()/12,getAngularPosition());
+        RobotPositionIntegrator.updateWithGyro(Timer.getFPGATimestamp(),encoderCountsToInches(getLeftVelocity())*10,encoderCountsToInches(getRightVelocity())*10,getAngularPosition());
     }
 
 }
