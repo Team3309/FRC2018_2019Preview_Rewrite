@@ -24,7 +24,6 @@ public class Robot extends TimedRobot {
     public static Intake intake;
     public static LED led;
     public static Lift lift;
-
     public static OI oi;
 
     /*
@@ -46,9 +45,6 @@ public class Robot extends TimedRobot {
         Scheduler.initialize();
         MapSynchronizer.INSTANCE.link(RobotLogger.class);
         RobotLogger.INSTANCE.update();
-        //Invert the drive stick axes.
-        oi.getLeftJoystick().getYAxis().setRampFunction((x) -> -x);
-        oi.getRightJoystick().getXAxis().setRampFunction((x) -> -x);
         oi.getOperatorController().getLeftStick().getY().setRampFunction((x) -> -x);
     }
 

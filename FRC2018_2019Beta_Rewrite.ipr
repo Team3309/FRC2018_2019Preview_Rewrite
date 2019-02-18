@@ -14,12 +14,15 @@
     <bytecodeTargetLevel target="11">
       <module name="FRC2018_2019Beta_Rewrite_main" target="11" />
       <module name="FRC2018_2019Beta_Rewrite_test" target="11" />
+      <module name="FRC2018_2019Preview_Rewrite_main" target="11" />
+      <module name="FRC2018_2019Preview_Rewrite_test" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
   <component name="ExportableFileTemplateSettings">
     <default_templates>
       <template name="Gradle Kotlin DSL Build Script.gradle" reformat="true" live-template-enabled="false" enabled="false" />
@@ -73,6 +76,9 @@
     <option name="HEAP_SIZE" />
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="Kotlin2JsCompilerArguments">
+    <option name="sourceMapEmbedSources" />
   </component>
   <component name="Palette2">
     <group name="Swing">
@@ -197,12 +203,12 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Beta_Rewrite.iml" filepath="$PROJECT_DIR$/FRC2018_2019Beta_Rewrite.iml" group="FRC2018_2019Beta_Rewrite" />
-      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Beta_Rewrite_main.iml" filepath="$PROJECT_DIR$/FRC2018_2019Beta_Rewrite_main.iml" group="FRC2018_2019Beta_Rewrite" />
-      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Beta_Rewrite_test.iml" filepath="$PROJECT_DIR$/FRC2018_2019Beta_Rewrite_test.iml" group="FRC2018_2019Beta_Rewrite" />
+      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Preview_Rewrite.iml" filepath="$PROJECT_DIR$/FRC2018_2019Preview_Rewrite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Preview_Rewrite_main.iml" filepath="$PROJECT_DIR$/FRC2018_2019Preview_Rewrite_main.iml" group="FRC2018_2019Preview_Rewrite" />
+      <module fileurl="file://$PROJECT_DIR$/FRC2018_2019Preview_Rewrite_test.iml" filepath="$PROJECT_DIR$/FRC2018_2019Preview_Rewrite_test.iml" group="FRC2018_2019Preview_Rewrite" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11.0.2" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SuppressABINotification">
@@ -218,20 +224,20 @@
   <component name="libraryTable">
     <library name="Gradle: com.ctre.phoenix:api-java:5.13.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/api-java/5.13.0/f9b2c1e7b6f2cabc3204e791386c47a856654fc5/api-java-5.13.0.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/com/ctre/phoenix/api-java/5.13.0/api-java-5.13.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/api-java/5.13.0/d556f9757205f08a4106a6072291b7a8f2f00b9c/api-java-5.13.0-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/com/ctre/phoenix/api-java/5.13.0/api-java-5.13.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.ctre.phoenix:wpiapi-java:5.13.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/wpiapi-java/5.13.0/d37ff722315cf93181d9f28b10a6bbcb023306ff/wpiapi-java-5.13.0.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/com/ctre/phoenix/wpiapi-java/5.13.0/wpiapi-java-5.13.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ctre.phoenix/wpiapi-java/5.13.0/1176e3b7dc8b05a37d92c1e2fc398cef726ede28/wpiapi-java-5.13.0-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/com/ctre/phoenix/wpiapi-java/5.13.0/wpiapi-java-5.13.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.github.Nico1999:4322Utils:2019-2.3">
@@ -289,10 +295,12 @@
     <library name="Gradle: edu.wpi.first.thirdparty.frc2019.opencv:opencv-java:3.4.4-4">
       <CLASSES>
         <root url="jar://$USER_HOME$/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.wpilibj:wpilibj-java:2019.3.1">
@@ -316,19 +324,23 @@
     <library name="Gradle: junit:junit:4.12">
       <CLASSES>
         <root url="jar://$USER_HOME$/frc2019/maven/junit/junit/4.12/junit-4.12.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/junit/junit/4.12/junit-4.12.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/frc2019/maven/junit/junit/4.12/junit-4.12-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/junit/junit/4.12/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.hamcrest:hamcrest-core:1.3">
       <CLASSES>
         <root url="jar://$USER_HOME$/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../../../Public/frc2019/maven/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.21" type="kotlin.common">

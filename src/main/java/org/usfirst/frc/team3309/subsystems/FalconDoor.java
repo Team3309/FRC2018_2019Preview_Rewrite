@@ -13,7 +13,7 @@ public class FalconDoor extends Subsystem {
     private Solenoid shifter = new Solenoid(Constants.FALCON_DOOR_SOLENOID_PCM_PORT);
 
     public FalconDoor() {
-        addChild(shifter);
+//        addChild(shifter);
     }
 
     public void release() {

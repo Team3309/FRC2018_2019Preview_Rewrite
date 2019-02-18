@@ -41,7 +41,7 @@ public class BeltBar extends Subsystem {
         masterBar.configContinuousCurrentLimit(Constants.BELTBAR_MAX_CONTINUOUS_CURRENT, 10);
         masterBar.enableCurrentLimit(true);
         
-        addChild(masterBar);
+//        addChild(masterBar);
 
     }
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3309.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.GenericHID;
 import org.usfirst.frc.team4322.commandv2.Command;
 import org.usfirst.frc.team3309.Robot;
 
@@ -38,10 +39,10 @@ public class DriveBase_DriveManual extends Command {
 
     @Override
     protected void execute() {
-        double turn = Robot.oi.getRightJoystick().getXAxis().get();
-        double throttle = Robot.oi.getLeftJoystick().getYAxis().get();
+        double turn = -Robot.oi.getDriverController().getRightStick().x();
+        double throttle = -Robot.oi.getDriverController().getLeftStick().y();
+        boolean isQuickTurn = Robot.oi.getDriverController().rb();
         boolean isHighGear = Robot.driveBase.inHighGear();
-        boolean isQuickTurn = Robot.oi.getRightJoystick().getTrigger().get();
 
         double negInertia = turn - oldTurn;
         oldTurn = turn;
